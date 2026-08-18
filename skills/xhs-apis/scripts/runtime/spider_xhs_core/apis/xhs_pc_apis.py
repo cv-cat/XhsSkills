@@ -14,6 +14,20 @@ class XHS_Apis():
     def __init__(self):
         self.base_url = "https://edith.xiaohongshu.com"
 
+    def _validate_proxies(self, proxies: dict) -> dict:
+        if proxies is None:
+            return None
+        if not isinstance(proxies, dict):
+            raise ValueError("proxies must be a dict or None")
+        allowed_keys = {"http", "https", "no_proxy"}
+        allowed_schemes = ("http://", "https://", "socks5://", "socks4://")
+        for key, value in proxies.items():
+            if key not in allowed_keys:
+                raise ValueError(f"Invalid proxy key: {key}")
+            if key != "no_proxy" and value and not any(value.startswith(s) for s in allowed_schemes):
+                raise ValueError(f"Invalid proxy scheme for key {key}")
+        return proxies
+
     def get_homefeed_all_channel(self, cookies_str: str, proxies: dict = None):
         """
             获取主页的所有频道
@@ -23,7 +37,7 @@ class XHS_Apis():
         try:
             api = "/api/sns/web/v1/homefeed/category"
             headers, cookies, data = generate_request_params(cookies_str, api, '', 'GET')
-            response = requests.get(self.base_url + api, headers=headers, cookies=cookies, proxies=proxies)
+            response = requests.get(self.base_url + api, headers=headers, cookies=cookies, proxies=self._validate_proxies(proxies), timeout=30)
             res_json = response.json()
             success, msg = res_json["success"], res_json["msg"]
         except Exception as e:
@@ -63,7 +77,7 @@ class XHS_Apis():
                 "need_filter_image": False
             }
             headers, cookies, trans_data = generate_request_params(cookies_str, api, data, 'POST')
-            response = requests.post(self.base_url + api, headers=headers, data=trans_data, cookies=cookies, proxies=proxies)
+            response = requests.post(self.base_url + api, headers=headers, data=trans_data, cookies=cookies, proxies=self._validate_proxies(proxies), timeout=30)
             res_json = response.json()
             success, msg = res_json["success"], res_json["msg"]
         except Exception as e:
@@ -117,7 +131,7 @@ class XHS_Apis():
             }
             splice_api = splice_str(api, params)
             headers, cookies, data = generate_request_params(cookies_str, splice_api, '', 'GET')
-            response = requests.get(self.base_url + splice_api, headers=headers, cookies=cookies, proxies=proxies)
+            response = requests.get(self.base_url + splice_api, headers=headers, cookies=cookies, proxies=self._validate_proxies(proxies), timeout=30)
             res_json = response.json()
             success, msg = res_json["success"], res_json["msg"]
         except Exception as e:
@@ -135,7 +149,7 @@ class XHS_Apis():
         try:
             api = f"/api/sns/web/v1/user/selfinfo"
             headers, cookies, data = generate_request_params(cookies_str, api, '', 'GET')
-            response = requests.get(self.base_url + api, headers=headers, cookies=cookies, proxies=proxies)
+            response = requests.get(self.base_url + api, headers=headers, cookies=cookies, proxies=self._validate_proxies(proxies), timeout=30)
             res_json = response.json()
             success, msg = res_json["success"], res_json["msg"]
         except Exception as e:
@@ -380,7 +394,7 @@ class XHS_Apis():
                 "xsec_token": kvDist['xsec_token']
             }
             headers, cookies, data = generate_request_params(cookies_str, api, data, 'POST')
-            response = requests.post(self.base_url + api, headers=headers, data=data, cookies=cookies, proxies=proxies)
+            response = requests.post(self.base_url + api, headers=headers, data=data, cookies=cookies, proxies=self._validate_proxies(proxies), timeout=30)
             res_json = response.json()
             success, msg = res_json["success"], res_json["msg"]
         except Exception as e:
@@ -511,7 +525,7 @@ class XHS_Apis():
                 ]
             }
             headers, cookies, data = generate_request_params(cookies_str, api, data, 'POST')
-            response = requests.post(self.base_url + api, headers=headers, data=data.encode('utf-8'), cookies=cookies, proxies=proxies)
+            response = requests.post(self.base_url + api, headers=headers, data=data.encode('utf-8'), cookies=cookies, proxies=self._validate_proxies(proxies), timeout=30)
             res_json = response.json()
             success, msg = res_json["success"], res_json["msg"]
         except Exception as e:
@@ -934,7 +948,7 @@ class XHS_Apis():
         try:
             headers = get_common_headers()
             url = f"https://www.xiaohongshu.com/explore/{note_id}"
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=30)
             res = response.text
             video_addr = re.findall(r'<meta name="og:video" content="(.*?)">', res)[0]
         except Exception as e:
