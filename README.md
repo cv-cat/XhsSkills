@@ -44,6 +44,12 @@ python skills/xhs-apis/scripts/xhs_api_tool.py list
 - 仓库会保留 skill 所需的标准文件，例如 `SKILL.md`、`agents/openai.yaml`、`references/` 与 `scripts/`。
 - vendored runtime 已裁剪为仅支持 `xhs_pc_apis.py` 和 `xhs_creator_apis.py` 所需的最小文件集合。
 
+## 与 Spider_XHS 的同步关系
+
+- `XhsSkills` 中的运行时代码来自 `Spider_XHS` 的裁剪版本，当前并非自动实时同步。
+- 当前锁定的上游基线版本记录在 `skills/xhs-apis/upstream.json` 中。
+- 当 `Spider_XHS` 上游更新时，维护者需要人工评估相关的 API 与签名变更，仅同步 `XhsSkills` 实际需要的文件，并在同步完成后更新 `upstream.json`。
+
 
 ## 📈 Star 趋势
 

@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/cv-cat/Spider_XHS",
+  "branch": "master",
+  "commit": "607c2e50503c38f3e30a12b1b13f374f840c8e8c",
+  "synced_at": "2026-04-11",
+  "runtime_root": "skills/xhs-apis/scripts/runtime/spider_xhs_core",
+  "vendored_files": [
+    "apis/__init__.py",
+    "apis/xhs_creator_apis.py",
+    "apis/xhs_pc_apis.py",
+    "static/xhs_creator_260411.js",
+    "static/xhs_creator_sign.js",
+    "static/xhs_creator_sign_other.js",
+    "static/xhs_creator_signature.js",
+    "static/xhs_main_260411.js",
+    "static/xhs_xray.js",
+    "static/xhs_xray_pack1.js",
+    "static/xhs_xray_pack2.js",
+    "xhs_utils/__init__.py",
+    "xhs_utils/cookie_util.py",
+    "xhs_utils/xhs_creator_util.py",
+    "xhs_utils/xhs_util.py"
+  ]
+}
