@@ -21,8 +21,7 @@ pip install -r skills/xhs-apis/scripts/requirements.txt
 2. Install Node dependencies:
 
 ```powershell
-Set-Location skills/xhs-apis/scripts
-npm install
+npm --prefix skills/xhs-apis/scripts install
 ```
 
 3. Inspect available methods:
@@ -54,7 +53,7 @@ python skills/xhs-apis/scripts/xhs_api_tool.py call pc get_note_info --params "{
 
 - The runtime shipped with this skill is a trimmed vendor copy that keeps only the code needed by `xhs_pc_apis.py` and `xhs_creator_apis.py`.
 - The CLI changes into its vendored runtime directory before import so the bundled JS signers can resolve their relative `static/` files.
-- If `jsdom` or `crypto-js` errors appear, rerun `npm install` inside `skills/xhs-apis/scripts`.
+- If `jsdom` or `crypto-js` errors appear, rerun `npm --prefix skills/xhs-apis/scripts install`.
 
 ## References
 

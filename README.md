@@ -29,8 +29,7 @@ pip install -r skills/xhs-apis/scripts/requirements.txt
 安装 Node 依赖：
 
 ```
-Set-Location skills/xhs-apis/scripts
-npm install
+npm --prefix skills/xhs-apis/scripts install
 ```
 
 查看当前可用方法：
